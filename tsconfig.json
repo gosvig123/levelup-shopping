@@ -1,9 +1,17 @@
 {
   "extends": "@vue/tsconfig/tsconfig.web.json",
-  "include": ["env.d.ts", "src/**/*", "src/**/*.vue", "/server.ts"],
+  "include": [
+    "env.d.ts",
+    "src/**/*",
+    "src/**/*.vue",
+    "/server.ts",
+    "tsconfig.server.json",
+    "types/**/*.d.ts"
+  ],
   "compilerOptions": {
     "lib": ["es2017", "dom"],
     "baseUrl": ".",
+    "importsNotUsedAsValues": "remove", // or "preserve"
     "paths": {
       "@/*": ["./src/*"]
     },

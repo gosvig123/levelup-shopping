@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import List from './components/List.vue'
 import Clock from './components/Clock.vue'
-import Leaderboard, { Player } from './components/Leaderboard.vue'
+import Leaderboard from './components/Leaderboard.vue'
 import { ref } from 'vue'
+import type { Player } from 'types'
 
 const players = ref<Player[]>([
   {

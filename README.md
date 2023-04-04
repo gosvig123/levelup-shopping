@@ -10,7 +10,7 @@ Follow these instructions to download and set up the project on your local machi
 
 1. Clone the repository:
    \```bash
-   git clone https://github.com/your_username/shopping-time-tracker-app.git
+   git clone https://github.com/gosvig123/levelup-shopping
    \```
 
 2. Navigate to the project folder:

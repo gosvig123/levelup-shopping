@@ -2,13 +2,7 @@ import express from 'express'
 import type { Request, Response } from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
-
-interface Item {
-  id: number
-  item: string
-  checked: boolean
-  count: number
-}
+import { Item } from '../types'
 
 const app = express()
 app.use(bodyParser.json())
@@ -28,10 +22,11 @@ app.post('/items', (req: Request, res: Response) => {
   try {
     const newItem: Item = req.body
 
+    console.log(newItem)
     // destructure newItem and add an id
-    const { item, checked, count } = newItem
+    const { name, checked, count } = newItem
     const id = items.length + 1
-    const newItemWithId = { id, item, checked, count }
+    const newItemWithId = { id, name, checked, count }
     items.push(newItemWithId)
     res.status(201).json(newItemWithId)
   } catch (error: any) {

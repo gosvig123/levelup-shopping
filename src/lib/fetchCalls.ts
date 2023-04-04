@@ -1,19 +1,15 @@
-// fetchCalls.ts
-interface Item {
-  id: number
-  name: string
-  checked: boolean
-  count: number
-}
-
-export const addItem = (newItem: any): Promise<Item> => {
-  return fetch('http://localhost:3000/items', {
+import type { Item } from 'types'
+export async function addItem(itemData: Item): Promise<Item> {
+  const response = await fetch('http://localhost:3000/items', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ item: newItem, checked: false, count: 1 })
-  }).then((res) => res.json())
+    body: JSON.stringify(itemData)
+  })
+
+  const data = await response.json()
+  return data
 }
 
 export async function getItems(): Promise<Item[]> {
@@ -31,7 +27,7 @@ export async function updateItem(item: Item): Promise<Item> {
     body: JSON.stringify({
       checked: item.checked,
       id: item.id,
-      item: item.name,
+      name: item.name,
       count: item.count
     })
   })
@@ -39,7 +35,7 @@ export async function updateItem(item: Item): Promise<Item> {
   return data
 }
 
-export async function deleteItems(): Promise<any> {
+export async function deleteItems(): Promise<void> {
   const response = await fetch(`http://localhost:3000/items`, {
     method: 'DELETE'
   })

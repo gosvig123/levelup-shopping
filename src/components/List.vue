@@ -47,12 +47,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { updateItem, deleteItems, addItem } from '../lib/fetchCalls'
-interface Item {
-  id: number
-  name: string
-  checked: boolean
-  count: number
-}
+import type { Item } from 'types'
+
 export default defineComponent({
   data() {
     return {
@@ -66,17 +62,19 @@ export default defineComponent({
     fetch('http://localhost:3000/items')
       .then((res) => res.json())
       .then((data) => {
-        data.forEach((item: any) => {
+        data.forEach((item: Item) => {
           const newItem = {
             id: item.id,
-            name: item.item,
+            name: item.name,
             checked: item.checked,
             count: item.count
           }
           if (item.checked) {
             this.checkedItems.push(newItem)
+            console.log(item)
           } else {
             this.items.push(newItem)
+            console.log(item)
           }
         })
       })
@@ -96,7 +94,13 @@ export default defineComponent({
     async addItem() {
       if (this.newItem) {
         try {
-          const data = await addItem(this.newItem)
+          const itemData: Item = {
+            name: this.newItem,
+            checked: false,
+            count: 1
+          }
+
+          const data = await addItem(itemData)
           this.items.push({
             id: data.id,
             name: this.newItem,
@@ -104,11 +108,13 @@ export default defineComponent({
             count: 1
           })
           this.newItem = ''
+          console.log(data)
         } catch (err) {
           console.log(err)
         }
       }
     },
+
     selectItem(index: number) {
       this.selectedItem = index
     },

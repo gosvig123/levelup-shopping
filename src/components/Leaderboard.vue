@@ -19,23 +19,18 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 
-export interface Player {
-  id: number
-  time: string
-  itemsBought: number
-  score: number
-}
+import type { Player } from 'types'
 
 export default defineComponent({
   props: {
     players: {
       type: Array as () => Player[],
-      required: true
+      required: false
     }
   },
   setup(props) {
     const sortedPlayers = computed(() => {
-      return [...props.players].sort((a, b) => b.score - a.score)
+      return [...props.players!].sort((a, b) => b.score - a.score)
     })
 
     return {
